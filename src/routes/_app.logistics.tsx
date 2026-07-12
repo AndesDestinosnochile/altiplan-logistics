@@ -55,8 +55,7 @@ function LogisticsPage() {
           reservation:reservations(
             id,code,
             customer:customers(full_name,phone,pax_count),
-            hotel:hotels(name,address,city),
-            seller:profiles!reservations_seller_id_fkey(full_name)
+            hotel:hotels(name,address,city)
           )
         `)
         .gte("tour_date", from)
