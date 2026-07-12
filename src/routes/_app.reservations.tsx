@@ -1,14 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { Plus, Search } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import { SupabaseSetupBanner } from "@/components/common/supabase-setup-banner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/features/auth/auth-context";
 import { supabase, SUPABASE_CONFIGURED } from "@/integrations/supabase/client";
 import { formatMoney, paidPercent } from "@/lib/currency";
 import type { Currency, FinancialStatus } from "@/lib/domain-types";
@@ -44,6 +46,8 @@ const STATUS_VARIANT: Record<FinancialStatus, "default" | "secondary" | "destruc
 
 function ReservationsPage() {
   const { t } = useTranslation();
+  const { isAdmin } = useAuth();
+  const qc = useQueryClient();
   const [search, setSearch] = useState("");
 
   const { data = [], isLoading } = useQuery({
@@ -63,6 +67,14 @@ function ReservationsPage() {
       return (data ?? []) as unknown as ReservationRow[];
     },
   });
+
+  async function remove(r: ReservationRow) {
+    if (!confirm(`Excluir reserva ${r.code}?`)) return;
+    const { error } = await supabase.from("reservations").delete().eq("id", r.id);
+    if (error) return toast.error(error.message);
+    toast.success("Reserva excluída");
+    qc.invalidateQueries({ queryKey: ["reservations"] });
+  }
 
   return (
     <div>
@@ -107,26 +119,31 @@ function ReservationsPage() {
                 <th className="px-4 py-3 text-right font-medium">{t("reservations.paid")}</th>
                 <th className="px-4 py-3 text-right font-medium">{t("reservations.balance")}</th>
                 <th className="px-4 py-3 font-medium">{t("reservations.status")}</th>
+                <th className="px-4 py-3" />
               </tr>
             </thead>
             <tbody className="divide-y">
               {isLoading && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
+                  <td colSpan={8} className="px-4 py-8 text-center text-muted-foreground">
                     {t("common.loading")}
                   </td>
                 </tr>
               )}
               {!isLoading && data.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
+                  <td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">
                     {t("reservations.empty")}
                   </td>
                 </tr>
               )}
               {data.map((r) => (
                 <tr key={r.id} className="transition-colors hover:bg-muted/30">
-                  <td className="px-4 py-3 font-mono text-xs">{r.code}</td>
+                  <td className="px-4 py-3 font-mono text-xs">
+                    <Link to="/reservations/$id" params={{ id: r.id }} className="text-primary hover:underline">
+                      {r.code}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3">
                     <div className="font-medium">{r.customers?.full_name ?? "—"}</div>
                     {r.customers?.phone && (
@@ -150,6 +167,13 @@ function ReservationsPage() {
                     <Badge variant={STATUS_VARIANT[r.financial_status]}>
                       {STATUS_LABEL[r.financial_status]}
                     </Badge>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    {isAdmin && (
+                      <Button size="icon" variant="ghost" onClick={() => remove(r)}>
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    )}
                   </td>
                 </tr>
               ))}
