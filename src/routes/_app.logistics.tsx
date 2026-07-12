@@ -176,7 +176,7 @@ function LogisticsPage() {
                       {r.reservation?.hotel && (
                         <div className="flex items-center gap-1"><HotelIcon className="h-3 w-3" /> {r.reservation.hotel.name}{r.reservation.hotel.address ? ` — ${r.reservation.hotel.address}` : ""}{r.reservation.hotel.city ? `, ${r.reservation.hotel.city}` : ""}</div>
                       )}
-                      {r.reservation?.seller?.full_name && <div>Vendedor: {r.reservation.seller.full_name}</div>}
+                      
                       {r.notes && <div className="mt-1 italic">{r.notes}</div>}
                     </div>
                   </div>
