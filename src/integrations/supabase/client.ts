@@ -3,6 +3,10 @@ import { createClient } from "@supabase/supabase-js";
 const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
+console.log("URL:", url);
+console.log("KEY:", anonKey);
+console.log(import.meta.env);
+
 if (!url || !anonKey) {
   console.error(
     "[Supabase] Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY. " +
