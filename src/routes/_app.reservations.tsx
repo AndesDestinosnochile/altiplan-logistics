@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -181,6 +181,7 @@ function ReservationsPage() {
           </table>
         </div>
       </Card>
+      <Outlet />
     </div>
   );
 }
