@@ -46,6 +46,8 @@ const STATUS_VARIANT: Record<FinancialStatus, "default" | "secondary" | "destruc
 
 function ReservationsPage() {
   const { t } = useTranslation();
+  const { isAdmin } = useAuth();
+  const qc = useQueryClient();
   const [search, setSearch] = useState("");
 
   const { data = [], isLoading } = useQuery({
@@ -65,6 +67,14 @@ function ReservationsPage() {
       return (data ?? []) as unknown as ReservationRow[];
     },
   });
+
+  async function remove(r: ReservationRow) {
+    if (!confirm(`Excluir reserva ${r.code}?`)) return;
+    const { error } = await supabase.from("reservations").delete().eq("id", r.id);
+    if (error) return toast.error(error.message);
+    toast.success("Reserva excluída");
+    qc.invalidateQueries({ queryKey: ["reservations"] });
+  }
 
   return (
     <div>
