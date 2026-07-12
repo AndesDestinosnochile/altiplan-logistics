@@ -36,7 +36,7 @@ export function LogoBadge({ className, size = 56, tone = "light" }: BadgeProps) 
       style={{ width: size, height: size }}
     >
       <img
-        src={solidLogo.url}
+        src={solidLogo}
         alt="Andes Destinos"
         className="absolute inset-0 h-full w-full scale-[1.35] object-cover"
         draggable={false}
