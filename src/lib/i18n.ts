@@ -28,7 +28,7 @@ if (!i18n.isInitialized) {
     supportedLngs: ["pt-BR", "es-CL"],
     interpolation: { escapeValue: false },
     react: { useSuspense: false },
-    initImmediate: false,
+    
   });
 
   if (typeof window !== "undefined") {
