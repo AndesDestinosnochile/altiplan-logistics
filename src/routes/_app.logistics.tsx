@@ -26,7 +26,6 @@ interface Row {
     code: string;
     customer: { full_name: string; phone: string | null; pax_count: number } | null;
     hotel: { name: string; address: string | null; city: string | null } | null;
-    seller: { full_name: string | null } | null;
   } | null;
 }
 
