@@ -119,26 +119,31 @@ function ReservationsPage() {
                 <th className="px-4 py-3 text-right font-medium">{t("reservations.paid")}</th>
                 <th className="px-4 py-3 text-right font-medium">{t("reservations.balance")}</th>
                 <th className="px-4 py-3 font-medium">{t("reservations.status")}</th>
+                <th className="px-4 py-3" />
               </tr>
             </thead>
             <tbody className="divide-y">
               {isLoading && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
+                  <td colSpan={8} className="px-4 py-8 text-center text-muted-foreground">
                     {t("common.loading")}
                   </td>
                 </tr>
               )}
               {!isLoading && data.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
+                  <td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">
                     {t("reservations.empty")}
                   </td>
                 </tr>
               )}
               {data.map((r) => (
                 <tr key={r.id} className="transition-colors hover:bg-muted/30">
-                  <td className="px-4 py-3 font-mono text-xs">{r.code}</td>
+                  <td className="px-4 py-3 font-mono text-xs">
+                    <Link to="/reservations/$id" params={{ id: r.id }} className="text-primary hover:underline">
+                      {r.code}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3">
                     <div className="font-medium">{r.customers?.full_name ?? "—"}</div>
                     {r.customers?.phone && (
@@ -162,6 +167,13 @@ function ReservationsPage() {
                     <Badge variant={STATUS_VARIANT[r.financial_status]}>
                       {STATUS_LABEL[r.financial_status]}
                     </Badge>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    {isAdmin && (
+                      <Button size="icon" variant="ghost" onClick={() => remove(r)}>
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    )}
                   </td>
                 </tr>
               ))}
