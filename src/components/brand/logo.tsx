@@ -1,5 +1,5 @@
-import transparentLogo from "@/assets/andes-destinos-logo-transparent.png.asset.json";
-import solidLogo from "@/assets/andes-destinos-logo.png.asset.json";
+import transparentLogo from "@/assets/andes-destinos-logo-transparent.png";
+import solidLogo from "@/assets/andes-destinos-logo.png";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -11,7 +11,8 @@ interface Props {
 
 export function Logo({ className, alt = "Andes Destinos", variant = "transparent" }: Props) {
   const asset = variant === "solid" ? solidLogo : transparentLogo;
-  return <img src={asset.url} alt={alt} className={className} />;
+
+return <img src={asset} alt={alt} className={className} />;
 }
 
 interface BadgeProps {
