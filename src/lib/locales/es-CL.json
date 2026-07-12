@@ -1,0 +1,80 @@
+{
+  "app": {
+    "name": "Andes Destinos",
+    "tagline": "Operación turística, sin planillas.",
+    "subtitle": "Central de Operaciones"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "reservations": "Reservas",
+    "logistics": "Logística",
+    "calendar": "Calendario",
+    "customers": "Pasajeros",
+    "hotels": "Hoteles",
+    "tours": "Tours",
+    "reports": "Informes",
+    "users": "Usuarios",
+    "settings": "Ajustes",
+    "logout": "Salir"
+  },
+  "auth": {
+    "signIn": "Ingresar",
+    "signUp": "Crear cuenta",
+    "signOut": "Salir",
+    "email": "Correo",
+    "password": "Contraseña",
+    "fullName": "Nombre completo",
+    "role": "Rol",
+    "roleSeller": "Vendedor",
+    "roleLogistics": "Logística",
+    "roleHelp": "Los vendedores crean y gestionan sus propias reservas. Logística visualiza todas las reservas para organizar pasajeros por día y por tour.",
+    "tabSignIn": "Ingresar",
+    "tabSignUp": "Crear cuenta",
+    "signInCta": "Acceder al sistema",
+    "signInSubtitle": "Bienvenido al centro de operaciones de Andes Destinos.",
+    "signUpCta": "Solicitar acceso",
+    "signUpSubtitle": "Crea tu cuenta de vendedor o logística. El administrador aprueba el acceso.",
+    "invalidCredentials": "Correo o contraseña inválidos.",
+    "sessionRestoring": "Restaurando sesión...",
+    "createdCheckEmail": "Cuenta creada. Verifica tu correo para confirmar el acceso.",
+    "createdSignedIn": "¡Cuenta creada! Redirigiendo...",
+    "signUpFailed": "No se pudo crear la cuenta.",
+    "heroTitle": "La operación de tu agencia,",
+    "heroTitle2": "organizada en un solo lugar.",
+    "heroBody": "Reservas, pasajeros, finanzas, contratos y logística — todo en un flujo elegante y rápido.",
+    "footer": "© Andes Destinos · Chile"
+  },
+  "reservations": {
+    "title": "Reservas",
+    "new": "Nueva reserva",
+    "code": "Código",
+    "customer": "Pasajero",
+    "seller": "Vendedor",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "total": "Total",
+    "paid": "Pagado",
+    "balance": "Saldo",
+    "status": "Estado",
+    "empty": "No hay reservas.",
+    "statusPaid": "Pagado",
+    "statusPartial": "Parcial",
+    "statusPending": "Pendiente",
+    "financialSummary": "{{percent}}% pagado • Saldo {{balance}}"
+  },
+  "common": {
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error.",
+    "actions": "Acciones",
+    "of": "de"
+  },
+  "setup": {
+    "title": "Configuración requerida",
+    "body": "Agrega VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY a tus variables de entorno para conectar tu proyecto Supabase.",
+    "docs": "Ver documentación"
+  }
+}
