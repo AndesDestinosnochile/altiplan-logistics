@@ -1,14 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { Plus, Search } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 import { SupabaseSetupBanner } from "@/components/common/supabase-setup-banner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/features/auth/auth-context";
 import { supabase, SUPABASE_CONFIGURED } from "@/integrations/supabase/client";
 import { formatMoney, paidPercent } from "@/lib/currency";
 import type { Currency, FinancialStatus } from "@/lib/domain-types";
