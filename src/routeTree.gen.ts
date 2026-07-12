@@ -23,6 +23,7 @@ import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 import { Route as AppCustomersRouteImport } from './routes/_app.customers'
 import { Route as AppCalendarRouteImport } from './routes/_app.calendar'
 import { Route as AppReservationsNewRouteImport } from './routes/_app.reservations.new'
+import { Route as AppReservationsIdRouteImport } from './routes/_app.reservations.$id'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -93,6 +94,11 @@ const AppReservationsNewRoute = AppReservationsNewRouteImport.update({
   path: '/new',
   getParentRoute: () => AppReservationsRoute,
 } as any)
+const AppReservationsIdRoute = AppReservationsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AppReservationsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AppSettingsRoute
   '/tours': typeof AppToursRoute
   '/users': typeof AppUsersRoute
+  '/reservations/$id': typeof AppReservationsIdRoute
   '/reservations/new': typeof AppReservationsNewRoute
 }
 export interface FileRoutesByTo {
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AppSettingsRoute
   '/tours': typeof AppToursRoute
   '/users': typeof AppUsersRoute
+  '/reservations/$id': typeof AppReservationsIdRoute
   '/reservations/new': typeof AppReservationsNewRoute
 }
 export interface FileRoutesById {
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/_app/settings': typeof AppSettingsRoute
   '/_app/tours': typeof AppToursRoute
   '/_app/users': typeof AppUsersRoute
+  '/_app/reservations/$id': typeof AppReservationsIdRoute
   '/_app/reservations/new': typeof AppReservationsNewRoute
 }
 export interface FileRouteTypes {
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tours'
     | '/users'
+    | '/reservations/$id'
     | '/reservations/new'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tours'
     | '/users'
+    | '/reservations/$id'
     | '/reservations/new'
   id:
     | '__root__'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/_app/settings'
     | '/_app/tours'
     | '/_app/users'
+    | '/_app/reservations/$id'
     | '/_app/reservations/new'
   fileRoutesById: FileRoutesById
 }
@@ -296,14 +308,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppReservationsNewRouteImport
       parentRoute: typeof AppReservationsRoute
     }
+    '/_app/reservations/$id': {
+      id: '/_app/reservations/$id'
+      path: '/$id'
+      fullPath: '/reservations/$id'
+      preLoaderRoute: typeof AppReservationsIdRouteImport
+      parentRoute: typeof AppReservationsRoute
+    }
   }
 }
 
 interface AppReservationsRouteChildren {
+  AppReservationsIdRoute: typeof AppReservationsIdRoute
   AppReservationsNewRoute: typeof AppReservationsNewRoute
 }
 
 const AppReservationsRouteChildren: AppReservationsRouteChildren = {
+  AppReservationsIdRoute: AppReservationsIdRoute,
   AppReservationsNewRoute: AppReservationsNewRoute,
 }
 
@@ -347,13 +368,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

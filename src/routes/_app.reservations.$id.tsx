@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
 import {
-  ArrowLeft, Save, Trash2, Plus, FileText, Upload, Download, Loader2, RefreshCw,
+  ArrowLeft, Save, Trash2, Plus, FileText, Download, Loader2, RefreshCw,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
